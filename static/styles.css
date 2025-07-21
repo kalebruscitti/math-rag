@@ -1,0 +1,30 @@
+.title {
+    color: green;
+}
+/* Chat containers */
+.text-area {
+  border: 2px solid #dedede;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+.text-area.user{
+    text-align: right;
+    background-color: #9fd1e9;
+}
+.text-area.server{
+    text-align: left;
+    background-color: #f1f1f1;
+}
+
+.chat-area {
+    border: 2xp solid #dedede;
+    width: 80%;
+    height: fit-content;
+}
+
+.text-input {
+    width: 100%;
+    margin: 10px 0;
+    border-radius: 5px;
+}

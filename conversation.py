@@ -4,21 +4,19 @@ from pydantic import BaseModel
 from prompts import *
 import vector_database as vdb
 
-rag_prompt_header = """Convert the following query into a series of strings 
-to be submitted to a vector database for retrieval-augmented generation (RAG):\n\n"""
-
-text = "What are marginal likelihood integrals?"
-
-
+class Conversation():
+    def __init__(self):
+        self.history = ""
+        
 class RAGQueries(BaseModel):
     queries: list[str]
-
+    
 def generate_rag_queries(text: str)->list[str]:
     print("Generating RAG Queries...")
     response: ChatResponse = chat(model='gemma3:4b', messages=[
      {
        'role': 'user',
-       'content': rag_prompt_header+text
+       'content': template_generate_rag_queries(text)
      }],
      format=RAGQueries.model_json_schema()
     )
@@ -43,7 +41,6 @@ def answer_question(text: str)->None:
         }],
         stream=True
     )
-    for chunk in stream:
-        print(chunk['message']['content'], end='', flush=True)
-
-answer_question(text)
+    #for chunk in stream:
+    #    print(chunk['message']['content'], end='', flush=True)
+    return stream
