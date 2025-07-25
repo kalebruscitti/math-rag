@@ -33,6 +33,9 @@ def parse_pdf(filepath: str)->dict:
     document = pymupdf.open(filepath)
     if 'title' in document.metadata:
         title=document.metadata['title']
+        if title == '':
+            print(f"Warning: Blank title for {filepath}")
+            title=filepath
     else:
         print(f"Warning: No title found for {filepath}")
         title=filepath

@@ -28,3 +28,41 @@
     margin: 10px 0;
     border-radius: 5px;
 }
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    background: #f3f3f3;
+    border-left: 1px solid #ddd;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.03);
+    padding: 20px 10px;
+    overflow-y: auto;
+}
+
+#sidebar h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.15em;
+}
+
+#file-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#file-list li {
+    margin-bottom: 10px;
+    font-size: 0.96em;
+    word-break: break-all;
+}
+
+#dropdown-list {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 18px;
+    font-size: 0.98em;
+}

@@ -37,4 +37,42 @@ $(document).ready(function () {
             currentResponseEl.text(existingText + data.data);
         }
     });
+
+    function fetch_collections() {
+        $.get('/collections', function(items) {
+            var $dropdown = $("#dropdown-list");
+            $dropdown.empty();
+            if (!items || items.length === 0) {
+                $dropdown.append('<option value="">(No collections found)</option>');
+            } else {
+                items.forEach(function(item) {
+                    $dropdown.append('<option value=' + item.name + '>' + item.name + ' ('+item.count+')</option>');
+                });
+            }
+        }).fail(function() {
+            $("#dropdown-list").html('<option value="">Error loading collections</option>');
+        });
+    }
+
+    function fetch_files(collection) {
+        $.get('/files', {name: collection}, function(files) {
+            var $list = $("#file-list");
+            $list.empty();
+            if(files.length === 0){
+                $list.append("<li>(No files loaded)</li>");
+            } else {
+                files.forEach(function(file){
+                    $list.append("<li>"+file+"</li>");
+                });
+            }
+        }).fail(function() {
+            $("#file-list").html("<li>Error fetching files.</li>");
+        });
+    }
+    fetch_collections();
+    $("#dropdown-list").on("change", function() {
+        var selected = $(this).val();
+        fetch_files(selected);
+    });
+    
 });
