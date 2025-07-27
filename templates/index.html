@@ -11,9 +11,20 @@
     <body>
         <div class="chat-area">
             <div id="response-container"><</div>
+            <div class="mode-toggle">
+                <label>
+                    <input type="radio" name="mode" value="chat" id="chat-mode" checked>
+                    Chat Mode
+                </label>
+                <label>
+                    <input type="radio" name="mode" value="search" id="search-mode">
+                    Search Mode
+                </label>
+            </div>
             <div class="user-input-area"> 
                 <textarea class="text-input" placeholder="Type message.." id="text-input" name="msg" required></textarea>
                 <button class="submit-message" id="submit-message-btn">Send</button>
+                
             </div>
         </div>
         <div id="sidebar">
@@ -21,9 +32,9 @@
             <select id="dropdown-list">
                 <option>Loading...</option>
             </select>
-            <h3>Files</h3>
+            <h3>Files in Set</h3>
             <ul id="file-list">
-                <li>Loading...</li>
+                <li>(No files loaded)</li>
             </ul>
         </div>
     </body>

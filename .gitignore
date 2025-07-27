@@ -8,6 +8,7 @@ __pycache__/
 # project specific:
 venv_rag
 database
+.pdf
 
 # C extensions
 *.so

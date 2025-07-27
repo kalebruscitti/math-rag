@@ -24,7 +24,8 @@ $(document).ready(function () {
             currentResponseEl = newResponse;
 
             // 5. Emit to server
-            socket.emit('QuerySubmitted', { data: text });
+            let mode = document.querySelector('input[name="mode"]:checked').value;
+            socket.emit('QuerySubmitted', { data: text, mode: mode});
         }
     });
 
@@ -46,7 +47,7 @@ $(document).ready(function () {
                 $dropdown.append('<option value="">(No collections found)</option>');
             } else {
                 items.forEach(function(item) {
-                    $dropdown.append('<option value=' + item.name + '>' + item.name + ' ('+item.count+')</option>');
+                    $dropdown.append('<option value=' + item.name + '>' + item.name + '</option>');
                 });
             }
         }).fail(function() {

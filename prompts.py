@@ -13,3 +13,13 @@ def template_generate_rag_queries(text: str)->list[str]:
     to be submitted to a vector database for retrieval-augmented generation (RAG):\n\n"""
     prompt = rag_prompt_header + text
     return rag_prompt_header
+
+def template_return_search_results(context: list[str], text: str)->str:
+    prompt = "Please format the following text snippets: \n\n"
+    for item in context:
+        prompt += f"{item}\n"
+    
+    prompt += "To most relevantly answer te query: \n\n"
+    prompt += text
+    prompt += "\n\n Clearly mark the snippets as quotations, separate from your own words."
+    return prompt

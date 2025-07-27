@@ -2,7 +2,7 @@ from ollama import chat
 from ollama import ChatResponse
 from pydantic import BaseModel
 from prompts import *
-import vector_database as vdb
+from database import DatabaseState
 
 class Conversation():
     def __init__(self):
@@ -23,17 +23,20 @@ def generate_rag_queries(text: str)->list[str]:
     queries = RAGQueries.model_validate_json(response.message.content)
     return queries.queries
 
-def retrieve_from_database(queries: list[str])->list[str]:
-    results = vdb.collection.query(
+def retrieve_from_database(database: DatabaseState, queries: list[str])->list[str]:
+    results = database.active_set.collection.query(
         query_texts=queries,
         n_results=5,
     )
     return results['documents']
 
-def answer_question(text: str)->None:
+def answer_question(text: str, mode: str, database: DatabaseState)->None:
     queries = generate_rag_queries(text)
-    results = retrieve_from_database(queries)
-    prompt = template_question_with_context(results, text)
+    results = retrieve_from_database(database, queries)
+    if mode == "chat":
+        prompt = template_question_with_context(results, text)
+    elif mode == "search":
+        prompt = template_return_search_results(results, text)
     stream = chat(model='gemma3:4b',
         messages=[{
             'role': 'user',
@@ -41,6 +44,4 @@ def answer_question(text: str)->None:
         }],
         stream=True
     )
-    #for chunk in stream:
-    #    print(chunk['message']['content'], end='', flush=True)
     return stream
